@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {IndexComponent} from './index/index.component';
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
   // 设置默认跳转路由， full表示与path为空的路由完全匹配
   { path: '', redirectTo: '/index', pathMatch: 'full' },
-  { path: 'index', component: IndexComponent}
+  { path: 'index', component: IndexComponent},
+  { path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
