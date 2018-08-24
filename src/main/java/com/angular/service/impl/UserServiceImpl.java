@@ -1,20 +1,31 @@
 package com.angular.service.impl;
 
-import com.angular.dao.IUserDao;
-import com.angular.model.User;
-import com.angular.service.IUserService;
+import com.angular.dao.UserDao;
+import com.angular.entity.User;
+import com.angular.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.List;
 
-@Service("userService")
-public class UserServiceImpl implements IUserService {
+@Service
+public class UserServiceImpl implements UserService {
 
-    @Resource
-    private IUserDao userDao;
+	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private UserDao userDao;
+	
+	
+	@Override
+	public List<User> getUserList(int offset, int limit) {
+		//缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
+		List<User> result_cache=userDao.queryAll(offset, limit);
 
-    public User selectUser(long userId) {
-        return this.userDao.selectUser(userId);
-    }
+		return result_cache;
+	}
+	
+	
 
 }
