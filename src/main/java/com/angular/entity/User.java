@@ -2,71 +2,68 @@ package com.angular.entity;
 
 import java.util.Date;
 
-
 /**
  * 用户
  * @author  NelsonKing
- *
  */
 public class User {
-	
-	private long userId;
-	
-	private String userName;
-	
-	private long userPhone;
-	
-	private Date createTime;
-	
-	private int score;
+	private Integer id;
 
-	public long getUserId() {
-		return userId;
+	private String name;
+
+	private String email;
+
+	private String password;
+
+	private int isAdmin;
+
+	private Date createdAt;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
 	}
 
-	public long getUserPhone() {
-		return userPhone;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserPhone(long userPhone) {
-		this.userPhone = userPhone;
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
 	}
 
-	public Date getCreateTime() {
-		return createTime;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
 	}
 
-	public int getScore() {
-		return score;
+	public int getIsAdmin() {
+		return isAdmin;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userPhone=" + userPhone + ", createTime=" + createTime + ", score=" + score
-				+ "]";
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	
-
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 }

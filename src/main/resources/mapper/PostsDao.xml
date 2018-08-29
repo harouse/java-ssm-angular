@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.angular.dao.PostsDao">
+    <!-- 添加帖子 -->
+    <select id="addPosts" resultType="Posts">
+        insert into
+        posts(`title`,`contents`,`user_id`)
+        VALUES
+        (#{title},#{contents},#{user_id},)
+    </select>
+
+    <!-- 修改帖子 -->
+    <select id="changePosts" resultType="Posts">
+        update posts
+        set
+        title = #{title},
+        contents = #{contents},
+        modify_user = #{modify_user}
+        where
+        id = #{id}
+    </select>
+
+</mapper>

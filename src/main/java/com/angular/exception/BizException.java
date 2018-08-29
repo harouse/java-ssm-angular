@@ -15,7 +15,4 @@ public class BizException extends RuntimeException {
     public BizException(String message, Throwable cause) {
         super(message,  cause);
     }
-    
-    
-
 }

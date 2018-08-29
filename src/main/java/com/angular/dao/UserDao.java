@@ -1,20 +1,41 @@
 package com.angular.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.angular.entity.User;
 
 public interface UserDao {
-
-	/**
-     * 根据手机号查询用户对象
-     *
-     * @param userPhone
+    /**
+     * 添加用户
+     * @param user
      * @return
      */
-    User queryByPhone(long userPhone);
+    void addUser(User user);
+
+    /**
+     * 查看用户名是否存在
+     * @param name
+     * @return
+     */
+    List<User> queryUserByName(String name);
+
+    /**
+     * 查看邮箱是否存在
+     * @param email
+     * @return
+     */
+    List<User> queryUserByEmail(String email);
+
+    /**
+     * 查找用户
+     * @param name
+     * @param password
+     * @return
+     */
+    User queryUser(@Param("name") String name, @Param("password") String password);
     
     
     /**
@@ -25,11 +46,4 @@ public interface UserDao {
      * @return
      */
     List<User> queryAll(@Param("offset") int offset, @Param("limit") int limit);
-
-    
-    /**
-     * 增加积分
-     */
-    void addScore(@Param("add")int add);
-	
 }

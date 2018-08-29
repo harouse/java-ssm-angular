@@ -1,31 +1,21 @@
 package com.angular.web;
 
-import com.angular.dto.BaseResult;
-import com.angular.entity.Goods;
-import com.angular.enums.ResultEnum;
-import com.angular.exception.BizException;
-import com.angular.service.GoodsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+    /**
+     * 项目首页
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
-
     public String index(Model model)
     {
         String paramStr = "字符串变量";
@@ -46,6 +36,18 @@ public class IndexController {
         model.addAttribute("paramMap", paramMap);
 
         return "index/index";
+    }
+
+    /**
+     * batis 介绍
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "mybatis")
+    public String mybatis(Model model)
+    {
+
+        return "index/mybatis";
     }
 
 }
