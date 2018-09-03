@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
 
-  constructor(private data: DataService) { }
+    constructor(private data: DataService) {
+    }
 
-  ngOnInit() {
-    let list = this.data.get<string>('http://localhost:8080/angular/user/showUser.do', {
-      id: 1,
-    });
+    listPosts: any = [];
 
-    console.dir(list);
+    ngOnInit() {
+        let list = this.data.get<any>('http://localhost:8080/angular/posts/lists');
 
-    list.subscribe(res => {
-      console.dir(res);
-    });
-  }
+        list.subscribe(res => {
+            if (res.code === 200) {
+                this.listPosts = res.data;
+            }
+        });
+    }
 
 }

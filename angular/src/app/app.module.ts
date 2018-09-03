@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { Utils } from './shared/utils';
 
 registerLocaleData(zh);
 
@@ -28,7 +29,10 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers   : [ { provide: NZ_I18N, useValue: zh_CN } ],
+  providers   : [
+      { provide: NZ_I18N, useValue: zh_CN },
+      Utils
+  ],
   bootstrap: [AppComponent]
 })
 

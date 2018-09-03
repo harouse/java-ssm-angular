@@ -39,10 +39,22 @@
 			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
 		</init-param>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>DruidWebStatFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<!--跨域配置-->
+	<filter>
+		<filter-name>cors</filter-name>
+		<filter-class>com.angular.filter.SimpleCORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>cors</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--跨域配置-->
 
 	<welcome-file-list>
 		<welcome-file>index.do</welcome-file>

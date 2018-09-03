@@ -20,6 +20,15 @@ export class DataService {
     return this.http.get<T>(url, {params: this.prepareParams(param)});
   }
 
+    /**
+     * post 请求 - CREATE
+     * @param {string} url
+     * @param {any} body
+     * @returns {Observable<T>}
+     */
+    post<T>(url: string, body?: any): Observable<T> {
+        return this.http.post<T>(url, body);
+    }
 
   /**
    * 对象转成 HttpParams 供 HTTP 请求使用

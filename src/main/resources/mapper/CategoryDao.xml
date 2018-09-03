@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.angular.dao.CategoryDao">
     <!-- 添加分类 -->
-    <select id="addCategory" resultType="Category">
+    <insert id="addCategory" parameterType="com.angular.entity.Category" useGeneratedKeys="true" keyProperty= "id">
         insert into
         category(`title`,`user_id`)
         VALUES
         (#{title},#{user_id})
-    </select>
+    </insert>
 
 </mapper>

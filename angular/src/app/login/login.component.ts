@@ -1,77 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators
+    AbstractControl,
+    FormBuilder,
+    FormGroup,
+    Validators
 } from '@angular/forms';
+import {DataService} from '../service/data.service';
+import { Utils } from '../shared/utils';
 
 @Component({
-  selector: 'nz-demo-form-normal-login',
-  template: `
-    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group nzPrefixIcon="anticon anticon-user">
-            <input type="text" nz-input formControlName="userName" placeholder="Username">
-          </nz-input-group>
-          <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">Please input your username!</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group nzPrefixIcon="anticon anticon-lock">
-            <input type="password" nz-input formControlName="password" placeholder="Password">
-          </nz-input-group>
-          <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your Password!</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <label nz-checkbox formControlName="remember">
-            <span>Remember me</span>
-          </label>
-          <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-          <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
-          Or
-          <a href="">register now!</a>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  `,
-  styles: [ `
-    .login-form {
-      max-width: 300px;
-    }
-
-    .login-form-forgot {
-      float: right;
-    }
-
-    .login-form-button {
-      width: 100%;
-    }
-  `
-  ]
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  validateForm: FormGroup;
+    validateForm: FormGroup;
 
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
+    constructor(private fb: FormBuilder,
+                private data: DataService,
+                private util: Utils) {
     }
-  }
 
-  constructor(private fb: FormBuilder) {
-  }
+    ngOnInit(): void {
+        this.validateForm = this.fb.group({
+            name: [null, [Validators.required]],
+            password: [null, [Validators.required]],
+        });
+    }
 
-  ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      userName: [ null, [ Validators.required ] ],
-      password: [ null, [ Validators.required ] ],
-      remember: [ true ]
-    });
-  }
+    submitForm(): void {
+        this.data.post<any>('http://localhost:8080/angular/user/login', this.validateForm.value).subscribe(res => {
+            if (res.code === 200) {
+                console.dir(res);
+            } else {
+                this.util.error(res.msg);
+            }
+        });
+    }
 }

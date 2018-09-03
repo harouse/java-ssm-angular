@@ -1,3 +1,12 @@
-<p>
-  index works!
-</p>
+<div style="background: #ECECEC;padding:30px;">
+
+    <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="8" *ngFor="let item of listPosts">
+            <nz-card nzTitle="{{item.title}}">
+                <p>{{item.contents}}</p>
+            </nz-card>
+        </div>
+    </div>
+
+
+</div>

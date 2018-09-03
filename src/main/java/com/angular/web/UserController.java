@@ -2,6 +2,7 @@ package com.angular.web;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.angular.JWT;
 import com.angular.entity.User;
 import com.angular.exception.BizException;
 import com.angular.service.ToolsServices;
@@ -11,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.apache.ibatis.annotations.Param;
 import sun.security.provider.MD5;
 
@@ -31,18 +29,20 @@ public class UserController extends CommonController {
 
 	/**
 	 * 前后登录
-	 * @param name
-	 * @param password
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public JSONObject login(@Param("name") String name, @Param("password") String password)
+	//public JSONObject login(@Param("name") String name, @Param("password") String password)
+	public JSONObject login(@RequestBody User user)
 	{
 		JSONObject userJson;
 
 		try {
-			userJson = userService.login(name, password);
+			userJson = userService.login(user.getName(), user.getPassword());
+
+			userJson.put("token", JWT.sign(userJson.get("id"), 60L* 1000L* 30L));
 		} catch (Exception e) {
 			return jsonError(e.getMessage());
 		}

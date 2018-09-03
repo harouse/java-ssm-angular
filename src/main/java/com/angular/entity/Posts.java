@@ -15,7 +15,7 @@ public class Posts {
 
     private Integer modifyUser;
 
-    private Date caeatedAt;
+    private Date createdAt;
 
     private String contents;
 
@@ -51,12 +51,12 @@ public class Posts {
         this.modifyUser = modifyUser;
     }
 
-    public Date getCaeatedAt() {
-        return caeatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCaeatedAt(Date caeatedAt) {
-        this.caeatedAt = caeatedAt;
+    public void setCaeatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getContents() {

@@ -45,6 +45,13 @@ public class UserDaoTest {
 	}
 
 	@Test
+	public void testLogin()
+	{
+		System.out.println(ToolsServices.parseMd5("gaoyansing"));
+
+	}
+
+	@Test
 	public void testQueryUser()
 	{
 		String name = "NelsonKing";
