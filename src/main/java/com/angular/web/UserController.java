@@ -41,8 +41,12 @@ public class UserController extends CommonController {
 
 		try {
 			userJson = userService.login(user.getName(), user.getPassword());
+			User userObj = new User();
+			userObj.setId(Integer.parseInt(userJson.get("id").toString()));
+            userObj.setName(userJson.get("name").toString());
+            userObj.setEmail(userJson.get("email").toString());
 
-			userJson.put("token", JWT.sign(userJson.get("id"), 60L* 1000L* 30L));
+			userJson.put("token", JWT.sign(userObj, 60L* 1000L* 30L));
 		} catch (Exception e) {
 			return jsonError(e.getMessage());
 		}

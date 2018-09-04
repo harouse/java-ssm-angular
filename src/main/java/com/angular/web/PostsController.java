@@ -2,6 +2,7 @@ package com.angular.web;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.angular.JWT;
 import com.angular.entity.Posts;
 import com.angular.entity.User;
 import com.angular.exception.BizException;
@@ -12,13 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.apache.ibatis.annotations.Param;
 import sun.security.provider.MD5;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +46,29 @@ public class PostsController extends CommonController {
 
         return jsonSuccess(listPosts);
     }
+
+    /**
+     * 添加帖子
+     * @return
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public JSONObject add(@RequestBody Posts posts, HttpServletRequest request)
+    {
+        String token = request.getHeader("authorization");
+        User userObj =  JWT.unsign(token, User.class);
+
+        posts.setUserId(userObj.getId());
+
+        try {
+            postsService.add(posts);
+        } catch (Exception e) {
+            return jsonError(e.getMessage());
+        }
+
+        return jsonSuccess("");
+    }
+
 
     /**
      * 修改帖子

@@ -1,12 +1,57 @@
-<div style="background: #ECECEC;padding:30px;">
+<div style="background: #ECECEC;padding:30px; float: left; margin-left: 30px" *ngFor="let item of listPosts">
+    <nz-card style="width:300px;"
+             [nzTitle]="titleTemplate"
+             [nzActions]="[actionSetting,actionEdit]">
+        <nz-card-meta  [nzDescription]="descTemplate"> </nz-card-meta>
+    </nz-card>
+    <ng-template #titleTemplate>
+        {{item.title}}
+    </ng-template>
 
-    <div nz-row [nzGutter]="8">
-        <div nz-col [nzSpan]="8" *ngFor="let item of listPosts">
-            <nz-card nzTitle="{{item.title}}">
-                <p>{{item.contents}}</p>
-            </nz-card>
+    <ng-template #descTemplate>
+        <div>
+            {{item.contents}}
         </div>
+
+        <br>
+        <div>发布时间: {{getLocalTime(item.createdAt)}}</div>
+    </ng-template>
+
+    <ng-template #actionSetting>
+        <i class="anticon anticon-edit" ></i>
+    </ng-template>
+
+    <ng-template #actionEdit>
+        <i class="anticon anticon-delete"></i>
+    </ng-template>
+</div>
+
+<!--权限添加/编辑-->
+<nz-drawer [nzVisible]="isAddPostsVisible"
+           [nzWidth]="500"
+           nzPlacement="right"
+           [nzTitle]="postsId ? '编辑帖子' : '添加帖子'"
+           (nzOnClose)="cancelPosts()">
+
+    <form nz-form id="postsForm" [formGroup]="postsForm" (ngSubmit)="submitPosts()">
+        <nz-form-item>
+            <nz-form-label class="form-item-required-after">标题</nz-form-label>
+            <nz-form-control>
+                <input nz-input formControlName="title" placeholder="请输入显示标题">
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label>内容</nz-form-label>
+            <nz-form-control>
+                <textarea nz-input [nzAutosize]="{ minRows: 4, maxRows: 6 }" formControlName="contents" placeholder="请输入内容详情"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+
+    <div class="drawer-footer">
+        <button nz-button nzType="default" (click)="cancelPosts()" style="margin-right: 16px">取消</button>
+        <button nz-button nzType="primary" type="submit" form="postsForm" [disabled]="postsForm.invalid">确定</button>
     </div>
 
-
-</div>
+</nz-drawer>

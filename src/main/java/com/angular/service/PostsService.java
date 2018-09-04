@@ -12,4 +12,5 @@ public interface PostsService {
     public List<Posts>  lists();
     public void edit(Posts posts);
     public void delete(int id);
+    public void add(Posts posts);
 }

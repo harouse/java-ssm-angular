@@ -35,6 +35,12 @@ public class PostServiceImpl implements PostsService {
     }
 
     @Override
+    public void add(Posts posts)
+    {
+        postsDao.addPosts(posts);
+    }
+
+    @Override
     public void edit(Posts posts)
     {
         postsDao.editPosts(posts);

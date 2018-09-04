@@ -1,0 +1,45 @@
+<nz-layout>
+
+    <nz-header id="header">
+        <span id="brand">
+            <span id="menu-trigger"><i class="fa fa-bars" (click)="isCollapsed =! isCollapsed; false"></i></span>
+            <a class="site-name" routerLink="/">帖子在线发布系统</a>
+        </span>
+
+
+        <nz-dropdown id="option" *ngIf="currentRoute == '/index'">
+            <a nz-dropdown>
+                操作选项 <i class="anticon anticon-down"></i>
+            </a>
+            <ul nz-menu nzSelectable>
+                <li nz-menu-item>
+                    <a (click)="addPosts()">发布帖子</a>
+                </li>
+            </ul>
+        </nz-dropdown>
+
+        <nz-dropdown nzPlacement="bottomRight" id="menu">
+            <a class="admin-avatar" nz-dropdown *ngIf="!!user">
+                {{user.name}}
+                <i class="anticon anticon-down"></i>
+            </a>
+            <ul nz-menu>
+                <li nz-menu-item>
+                    <a routerLink="/profile">个人信息</a>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item (click)="logout()">安全退出</li>
+            </ul>
+        </nz-dropdown>
+
+    </nz-header><!--/#header-->
+
+    <nz-layout>
+        <nz-content>
+            <div id="main-content" nz-row>
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+    </nz-layout>
+
+</nz-layout>
