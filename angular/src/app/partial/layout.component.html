@@ -27,6 +27,11 @@
                 <li nz-menu-item>
                     <a routerLink="/user-edit">个人信息</a>
                 </li>
+
+                <li nz-menu-item *ngIf="user.is_admin == 1">
+                    <a href="/user-add"> 添加用户 </a>
+                </li>
+
                 <li nz-menu-divider></li>
                 <li nz-menu-item (click)="logout()">安全退出</li>
             </ul>

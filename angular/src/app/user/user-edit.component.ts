@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {Utils} from '../shared/utils';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../core/authentication.service';
 
 @Component({
     selector: 'app-user-edit',
@@ -13,32 +14,40 @@ export class UserEditComponent implements OnInit {
     user: any = [];
     userId: number;
     userForm: FormGroup;
+
     constructor(private route: ActivatedRoute,
                 private userService: UserService,
                 private utils: Utils,
-                private fb: FormBuilder,) {
+                private fb: FormBuilder,
+                private userAuth: AuthenticationService) {
 
         this.userForm = fb.group({
-            name : [null, Validators.required],
-            email : [null, Validators.required],
-            password : [null],
+            name: [null, Validators.required],
+            email: [null, Validators.required],
+            password: [null],
         });
+
+        // 编辑用户
+        if (location.href.split('user-edit').length > 1) {
+            this.userId = userAuth.getUser().id;
+        }
     }
 
     ngOnInit() {
-        this.getUser();
+        if (this.userId) {
+            this.getUser();
+        }
     }
 
     getUser() {
-        this.userService.getUser().subscribe( res => {
+        this.userService.getUser().subscribe(res => {
             if (res.code === 200) {
                 this.user = res.data;
-                this.userId = res.data.id;
 
                 this.userForm.patchValue({
-                    name : res.data.name,
-                    email : res.data.email,
-                    password : '',
+                    name: res.data.name,
+                    email: res.data.email,
+                    password: '',
                 });
             } else {
                 this.utils.error(res.msg);
@@ -49,13 +58,21 @@ export class UserEditComponent implements OnInit {
     submitUser() {
         let userObj = this.userForm.value;
         let that = this;
-        userObj.id = this.userId;
 
-        this.userService.editUser(userObj).subscribe(res => {
-            this.utils.showUitlsByResponse(res, function(){
-                that.getUser();
+        if (this.userId) {
+            userObj.id = this.userId;
+
+            this.userService.editUser(userObj).subscribe(res => {
+                this.utils.showUitlsByResponse(res, function () {
+                    that.getUser();
+                });
             });
-        });
+        } else {
+            // 添加用户
+            this.userService.addUser(userObj).subscribe( res => {
+                this.utils.showUitlsByResponse(res);
+            });
+        }
     }
 
 }

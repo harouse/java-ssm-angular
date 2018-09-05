@@ -72,7 +72,7 @@ public class UserController extends CommonController {
 	}
 
 
-	@RequestMapping(value = "/add-user")
+	@RequestMapping(value = "/add")
 	@ResponseBody
 	public JSONObject addUser(@Param("name") String name, @Param("email") String email,
 							  @Param("password") String password,

@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService {
     {
         // 查看用户是否存在
         List<User> nameObj = userDao.queryUserByName(name);
-        if (nameObj != null) throw new BizException("当前用户名已经存在");
+        if (!nameObj.isEmpty()) throw new BizException("当前用户名已经存在");
 
         List<User> emailObj = userDao.queryUserByEmail(email);
-        if (emailObj != null) throw new BizException("当前邮箱已经存在");
+        if (!emailObj.isEmpty()) throw new BizException("当前邮箱已经存在");
 
         // 设置插入对象，便于查看自增ID
         JSONObject resultJson = new JSONObject();

@@ -1,8 +1,8 @@
 <form nz-form [formGroup]="userForm" (ngSubmit)="submitUser()">
     <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>Username</nz-form-label>
+        <nz-form-label [nzSpan]="7" nzRequired>用户名</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-            <input nz-input formControlName="name" placeholder="async validate try to write JasonWood">
+            <input nz-input formControlName="name" placeholder="请填写用户名">
             <nz-form-explain *ngIf="userForm.get('name').dirty && userForm.get('name').errors || userForm.get('name').pending ">
                 <ng-container *ngIf="userForm.get('name').hasError('required')">
                     Please input your name!
@@ -20,9 +20,9 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>email</nz-form-label>
+        <nz-form-label [nzSpan]="7" nzRequired>邮箱</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-            <input nz-input formControlName="email" placeholder="async validate try to write JasonWood">
+            <input nz-input formControlName="email" placeholder="请填写邮箱">
             <nz-form-explain *ngIf="userForm.get('email').dirty && userForm.get('email').errors || userForm.get('email').pending ">
                 <ng-container *ngIf="userForm.get('email').hasError('required')">
                     Please input your email!
@@ -42,7 +42,7 @@
 
 
     <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>password</nz-form-label>
+        <nz-form-label [nzSpan]="7" nzRequired>密码</nz-form-label>
         <div>
             <nz-form-control [nzSpan]="12" nzHasFeedback>
                 <input nz-input type="password" formControlName="password">

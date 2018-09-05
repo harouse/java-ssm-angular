@@ -22,4 +22,8 @@ export class UserService {
     editUser(user: object): Observable<any> {
         return this.data.post( this.apiUrl + 'user/edit', user);
     }
+
+    addUser(user: object): Observable<any> {
+        return this.data.get( this.apiUrl + 'user/add', user);
+    }
 }
