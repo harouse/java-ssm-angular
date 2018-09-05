@@ -43,6 +43,21 @@ public class CommonController {
         }
     }
 
+    public boolean paramInvalid(Object object)
+    {
+        String param = object.toString();
+
+        if (param == null) {
+            return false;
+        }
+
+        if (param.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public void checkPermission(Posts postsObj) throws Exception
     {
         User userObj = checkUser();

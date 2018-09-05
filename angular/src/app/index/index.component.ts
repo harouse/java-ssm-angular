@@ -19,7 +19,7 @@ export class IndexComponent implements OnInit {
     postsId = 0;
 
     constructor(private data: DataService,
-                private posts: PostsService,
+                private postServices: PostsService,
                 private fb: FormBuilder,
                 private auth: AuthenticationService,
                 public emitService: EmitService,
@@ -36,24 +36,23 @@ export class IndexComponent implements OnInit {
 
     ngOnInit() {
         this.getList();
-    }
-
-    getList() {
-        let list = this.data.get<any>('http://localhost:8080/angular/posts/lists');
-        list.subscribe(res => {
-            if (res.code === 200) {
-                this.listPosts = res.data;
-            }
-        });
 
         this.emitService.eventEmit.subscribe(res => {
             this.isAddPostsVisible = res;
         });
     }
 
+    getList() {
+        this.postServices.getPosts().subscribe( res => {
+            if (res.code === 200) {
+                this.listPosts = res.data;
+            }
+        });
+    }
+
     deletePosts(id: number) {
         let that = this;
-        this.posts.deletePosts(id).subscribe( res => {
+        this.postServices.deletePosts(id).subscribe( res => {
             this.util.showUitlsByResponse(res, function() {
                 that.getList();
             });
@@ -86,14 +85,14 @@ export class IndexComponent implements OnInit {
         if (this.postsId) {
             data.id = this.postsId;
 
-            this.posts.editPosts(data).subscribe( res => {
+            this.postServices.editPosts(data).subscribe( res => {
                 this.util.showUitlsByResponse(res, function(){
                     that.getList();
                     that.cancelPosts();
                 });
             });
         } else {
-            this.posts.addPosts(data).subscribe(res => {
+            this.postServices.addPosts(data).subscribe(res => {
                 that.util.showUitlsByResponse(res, function () {
                     that.getList();
                     that.cancelPosts();

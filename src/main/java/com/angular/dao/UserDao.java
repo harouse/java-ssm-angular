@@ -29,6 +29,8 @@ public interface UserDao {
      */
     List<User> queryUserByEmail(String email);
 
+    User queryUserById(Integer id);
+
     /**
      * 查找用户
      * @param name
@@ -46,4 +48,10 @@ public interface UserDao {
      * @return
      */
     List<User> queryAll(@Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 修改用户信息
+     * @param user
+     */
+    void editUser(User user);
 }

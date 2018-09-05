@@ -66,5 +66,15 @@ public class UserServiceImpl implements UserService {
 
         return resultJson;
     }
+
+    @Override
+    public User queryUserById(Integer id) {
+        return userDao.queryUserById(id);
+    }
+
+    @Override
+    public void editUser(User user) {
+        userDao.editUser(user);
+    }
 }
 

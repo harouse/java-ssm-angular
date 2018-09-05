@@ -21,6 +21,7 @@ import {JWTInterceptor} from './core/jwt-interceptor';
 import {TokenInterceptor} from './core/token-interceptor';
 import {PostsService} from './service/posts.service';
 import {UserService} from './service/user.service';
+import { UserEditComponent } from './user/user-edit.component';
 
 registerLocaleData(zh);
 
@@ -30,6 +31,7 @@ registerLocaleData(zh);
         IndexComponent,
         LoginComponent,
         LayoutComponent,
+        UserEditComponent,
     ],
     imports: [
         BrowserModule,

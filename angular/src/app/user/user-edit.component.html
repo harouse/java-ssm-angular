@@ -1,0 +1,58 @@
+<form nz-form [formGroup]="userForm" (ngSubmit)="submitUser()">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Username</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+            <input nz-input formControlName="name" placeholder="async validate try to write JasonWood">
+            <nz-form-explain *ngIf="userForm.get('name').dirty && userForm.get('name').errors || userForm.get('name').pending ">
+                <ng-container *ngIf="userForm.get('name').hasError('required')">
+                    Please input your name!
+                </ng-container>
+
+                <ng-container *ngIf="userForm.get('name').hasError('duplicated')">
+                    The username is redundant!
+                </ng-container>
+
+                <ng-container *ngIf="userForm.get('name').pending">
+                    Validating...
+                </ng-container>
+
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>email</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+            <input nz-input formControlName="email" placeholder="async validate try to write JasonWood">
+            <nz-form-explain *ngIf="userForm.get('email').dirty && userForm.get('email').errors || userForm.get('email').pending ">
+                <ng-container *ngIf="userForm.get('email').hasError('required')">
+                    Please input your email!
+                </ng-container>
+
+                <ng-container *ngIf="userForm.get('email').hasError('duplicated')">
+                    The email is redundant!
+                </ng-container>
+
+                <ng-container *ngIf="userForm.get('email').pending">
+                    Validating...
+                </ng-container>
+
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>password</nz-form-label>
+        <div>
+            <nz-form-control [nzSpan]="12" nzHasFeedback>
+                <input nz-input type="password" formControlName="password">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!userForm.valid">Submit</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

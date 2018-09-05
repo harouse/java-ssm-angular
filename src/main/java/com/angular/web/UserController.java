@@ -54,6 +54,23 @@ public class UserController extends CommonController {
 		return jsonSuccess(userJson);
 	}
 
+	@RequestMapping(value="/get")
+	@ResponseBody
+	public JSONObject get() {
+		User userObj;
+
+		try {
+			User user = checkUser();
+			userObj = userService.queryUserById(user.getId());
+			userObj.setPassword("");
+
+		} catch (Exception e) {
+			return jsonError(e.getMessage());
+		}
+
+		return jsonSuccess(userObj);
+	}
+
 
 	@RequestMapping(value = "/add-user")
 	@ResponseBody
@@ -72,5 +89,22 @@ public class UserController extends CommonController {
 		}
 
 		return jsonSuccess(userJson);
+	}
+
+	@RequestMapping(value="/edit")
+	@ResponseBody
+	public JSONObject edit(@RequestBody User user) {
+		try {
+			if (paramInvalid(user.getPassword())) {
+				user.setPassword(ToolsServices.parseMd5(user.getPassword()));
+			}
+
+			userService.editUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return jsonError(e.getMessage());
+		}
+
+		return jsonSuccess("");
 	}
 }

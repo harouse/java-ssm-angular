@@ -5,6 +5,7 @@ import {IndexComponent} from './index/index.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './core/auth-guard.service';
 import {LayoutComponent} from './partial/layout.component';
+import {UserEditComponent} from './user/user-edit.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       children: [
           { path: 'index', component: IndexComponent},
+          { path: 'user-edit', component: UserEditComponent},
       ]
   }
 ];

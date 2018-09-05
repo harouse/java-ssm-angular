@@ -10,8 +10,12 @@ export class PostsService {
     apiUrl: string;
 
     constructor(private config: Configuration,
-        private data: DataService) {
+                private data: DataService) {
         this.apiUrl = config.API_URL;
+    }
+
+    getPosts(): Observable<any> {
+        return this.data.get(this.apiUrl + 'posts/lists');
     }
 
     addPosts(data: any): Observable<any> {

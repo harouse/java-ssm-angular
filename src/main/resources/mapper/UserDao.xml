@@ -27,7 +27,16 @@
 			id
 		FROM
 			user
-		where email = #{email}
+		WHERE email = #{email}
+	</select>
+
+	<select id="queryUserById" resultType="User">
+		SELECT
+			*
+		FROM
+			user
+		WHERE
+			id = #{id}
 	</select>
 
 	<select id="queryAll" resultType="User">
@@ -46,5 +55,15 @@
 		(#{name},#{email},#{password},#{isAdmin})
 	</insert>
 
+	<update id="editUser" parameterType="com.angular.entity.User" >
+		update
+			user
+		set
+			name = #{name},
+			email = #{email},
+			password = #{password}
+		WHERE
+			id = #{id}
+	</update>
 
 </mapper>

@@ -12,14 +12,12 @@ import { EmitService } from '../service/emit.service';
 export class LayoutComponent implements OnInit {
     isCollapsed = false;
     user: any = {};
-    file_prefix: string;
     currentRoute: string;
 
     constructor(private router: Router,
                 private authService: AuthenticationService,
                 private config: Configuration,
                 public emitService: EmitService) {
-        this.file_prefix = config.FILE_PREFIX;
         this.currentRoute = router.url;
     }
 
