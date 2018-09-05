@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd';
-import { NzMessageService } from 'ng-zorro-antd';
+import {Injectable} from '@angular/core';
+import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd';
 
 declare let jQuery: any;
 import * as _ from 'lodash';
@@ -37,6 +37,23 @@ export class Utils {
             nzCancelText: '取消',
             nzOnOk: callback
         });
+    }
+
+    showUitlsByResponse(data, successFunc?, errorFunc?) {
+        if (data.code === 200) {
+            this.info(data.msg);
+
+            if (successFunc && data.code === 200) {
+                successFunc();
+            }
+        } else {
+            this.error(data.msg);
+
+            if (errorFunc && data.code === 200) {
+                errorFunc();
+            }
+        }
+
     }
 
     /**
@@ -106,7 +123,7 @@ export class Utils {
                 if (Array.isArray(data[key])) {
                     data[key].forEach(e => arr.push(e));
                 } else {
-                    arr.push(data[key])
+                    arr.push(data[key]);
                 }
             });
         }
@@ -154,7 +171,7 @@ export class Utils {
      * @returns {number}
      */
     diffDays(date1: Date, date2: Date): number {
-        return Math.floor((date1.getTime() - date2.getTime()) / (1000 * 3600 *24));
+        return Math.floor((date1.getTime() - date2.getTime()) / (1000 * 3600 * 24));
     }
 
     /**

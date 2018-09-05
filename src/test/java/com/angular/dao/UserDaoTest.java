@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.angular.JWT;
 import com.angular.service.ToolsServices;
 import com.angular.service.impl.UserServiceImpl;
 import com.angular.web.CommonController;
@@ -47,6 +50,14 @@ public class UserDaoTest {
 	@Test
 	public void testLogin()
 	{
+		User userObj = new User();
+		userObj.setId(1);
+		String token =JWT.sign(userObj, 3600 * 24);
+
+		System.out.println(token);
+		System.out.println(System.currentTimeMillis());
+		System.out.println(System.currentTimeMillis() + 3600 * 24);
+
 		System.out.println(ToolsServices.parseMd5("gaoyansing"));
 
 	}

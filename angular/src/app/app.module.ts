@@ -19,6 +19,8 @@ import {LayoutComponent} from './partial/layout.component';
 import {EmitService} from './service/emit.service';
 import {JWTInterceptor} from './core/jwt-interceptor';
 import {TokenInterceptor} from './core/token-interceptor';
+import {PostsService} from './service/posts.service';
+import {UserService} from './service/user.service';
 
 registerLocaleData(zh);
 
@@ -46,6 +48,8 @@ registerLocaleData(zh);
         AuthenticationService,
         JwtHelperService,
         EmitService,
+        PostsService,
+        UserService,
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }
     ],

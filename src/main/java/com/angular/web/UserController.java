@@ -46,7 +46,7 @@ public class UserController extends CommonController {
             userObj.setName(userJson.get("name").toString());
             userObj.setEmail(userJson.get("email").toString());
 
-			userJson.put("token", JWT.sign(userObj, 60L* 1000L* 30L));
+			userJson.put("token", JWT.sign(userObj, 3600 * 24));
 		} catch (Exception e) {
 			return jsonError(e.getMessage());
 		}
@@ -73,5 +73,4 @@ public class UserController extends CommonController {
 
 		return jsonSuccess(userJson);
 	}
-
 }

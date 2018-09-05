@@ -19,7 +19,7 @@ public interface PostsDao {
      * @param posts
      * @return
      */
-    Posts editPosts(Posts posts);
+    void editPosts(Posts posts);
 
     /**
      * 通过ID查找文章

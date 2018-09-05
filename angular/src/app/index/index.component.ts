@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
 import {AuthenticationService} from '../core/authentication.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EmitService} from '../service/emit.service';
+import {Utils} from '../shared/utils';
+import {PostsService} from '../service/posts.service';
 
 @Component({
     selector: 'app-index',
@@ -17,15 +19,17 @@ export class IndexComponent implements OnInit {
     postsId = 0;
 
     constructor(private data: DataService,
+                private posts: PostsService,
                 private fb: FormBuilder,
                 private auth: AuthenticationService,
-                public emitService: EmitService) {
+                public emitService: EmitService,
+                private util: Utils) {
 
         this.user = this.auth.getUser();
         // 帖子 添加/编辑 窗体
         this.postsForm = fb.group({
-            title:        [null, Validators.required],
-            contents:      [null, Validators.required],
+            title: [null, Validators.required],
+            contents: [null, Validators.required],
         });
     }
 
@@ -42,17 +46,32 @@ export class IndexComponent implements OnInit {
             }
         });
 
-        this. emitService.eventEmit.subscribe(res => {
+        this.emitService.eventEmit.subscribe(res => {
             this.isAddPostsVisible = res;
         });
     }
 
-    deletePosts() {
+    deletePosts(id: number) {
+        let that = this;
+        this.posts.deletePosts(id).subscribe( res => {
+            this.util.showUitlsByResponse(res, function() {
+                that.getList();
+            });
+        });
+    }
 
+    editPosts(postsItem: any) {
+        this.isAddPostsVisible = true;
+        this.postsId = postsItem.id;
+
+        this.postsForm.patchValue({
+            'title': postsItem.title,
+            'contents': postsItem.contents,
+        });
     }
 
     getLocalTime(timeStamp) {
-        return new Date(timeStamp).toLocaleString().replace(/年|月/g, '-').replace(/日/g, ' ');
+        return new Date(timeStamp).toLocaleString();
     }
 
     cancelPosts() {
@@ -62,10 +81,25 @@ export class IndexComponent implements OnInit {
     }
 
     submitPosts() {
-        let data: any = { ...this.postsForm.value };
-        this.data.post('http://localhost:8080/angular/posts/add', data).subscribe( res => {
-            console.dir(res);
-        });
+        let data: any = {...this.postsForm.value};
+        let that = this;
+        if (this.postsId) {
+            data.id = this.postsId;
+
+            this.posts.editPosts(data).subscribe( res => {
+                this.util.showUitlsByResponse(res, function(){
+                    that.getList();
+                    that.cancelPosts();
+                });
+            });
+        } else {
+            this.posts.addPosts(data).subscribe(res => {
+                that.util.showUitlsByResponse(res, function () {
+                    that.getList();
+                    that.cancelPosts();
+                });
+            });
+        }
     }
 
 }

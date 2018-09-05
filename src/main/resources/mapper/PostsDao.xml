@@ -12,13 +12,14 @@
 
     <!-- 修改帖子 -->
     <update id="editPosts" parameterType="com.angular.entity.Posts" useGeneratedKeys="true" keyProperty= "id">
-        update posts
+        update
+          posts
         set
-        title = #{title},
-        contents = #{contents},
-        modify_user = #{modify_user}
+          title = #{title},
+          contents = #{contents},
+          modify_user = #{modifyUser}
         where
-        id = #{id}
+          id = #{id}
     </update>
 
     <!--通过ID查找帖子-->

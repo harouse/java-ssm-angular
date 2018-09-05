@@ -53,42 +53,42 @@ public class PostsController extends CommonController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public JSONObject add(@RequestBody Posts posts, HttpServletRequest request)
+    public JSONObject add(@RequestBody Posts posts)
     {
-        String token = request.getHeader("authorization");
-        User userObj =  JWT.unsign(token, User.class);
-
-        posts.setUserId(userObj.getId());
-
         try {
+            User userObj = checkUser();
+            posts.setUserId(userObj.getId());
+
             postsService.add(posts);
         } catch (Exception e) {
+            e.printStackTrace();
             return jsonError(e.getMessage());
         }
 
         return jsonSuccess("");
     }
 
-
     /**
      * 修改帖子
      */
-    public JSONObject edit( @Param("id") int id,
-                            @RequestParam(value = "title", required = false) String title,
-                            @RequestParam(value = "contents", required = false) String contents)
+    @RequestMapping(value = "/edit")
+    @ResponseBody
+    public JSONObject edit( @RequestBody Posts posts)
     {
         try {
-            Posts posts = postsService.findById(id);
+            User userObj = checkUser();
+            Posts postsObj = postsService.findById(posts.getId());
+            postsObj.setModifyUser(userObj.getId());
 
-            if (!title.isEmpty()) {
-                posts.setTitle(title);
+            if (!posts.getTitle().isEmpty()) {
+                postsObj.setTitle(posts.getTitle());
             }
 
-            if (!contents.isEmpty()) {
-                posts.setContents(contents);
+            if (!posts.getContents().isEmpty()) {
+                postsObj.setContents(posts.getContents());
             }
 
-            postsService.edit(posts);
+            postsService.edit(postsObj);
         } catch (Exception e) {
             return jsonError(e.getMessage());
         }
@@ -100,18 +100,20 @@ public class PostsController extends CommonController {
     /**
      * 删除帖子
      */
-    public JSONObject delete(@Param("id") int id)
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public JSONObject delete( @RequestBody Posts posts)
     {
-
         try {
-            postsService.delete(id);
+            Posts postsObj = postsService.findById(posts.getId());
+            checkParam(postsObj);
 
+            postsService.delete(posts.getId());
         } catch (Exception e) {
             return jsonError(e.getMessage());
         }
 
         return jsonSuccess("");
     }
-
 
 }
