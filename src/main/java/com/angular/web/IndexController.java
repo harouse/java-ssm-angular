@@ -18,7 +18,7 @@ public class IndexController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model)
     {
-        String paramStr = "字符串变量";
+        String paramStr = "abcdefg";
 
         Map<String,Object> paramMap=new HashMap<>();
         paramMap.put("name", "NelsonKing");
@@ -39,6 +39,17 @@ public class IndexController {
     }
 
     /**
+     * 目录 介绍
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "dictionary")
+    public String dictionary(Model model)
+    {
+        return "index/dictionary";
+    }
+
+    /**
      * batis 介绍
      * @param model
      * @return
@@ -48,6 +59,26 @@ public class IndexController {
     {
 
         return "index/mybatis";
+    }
+
+    /**
+     * spring 介绍
+     */
+    @RequestMapping(value = "spring")
+    public String spring(Model model)
+    {
+
+        return "index/spring";
+    }
+
+    /**
+     * spring mvc 介绍
+     */
+    @RequestMapping(value = "spring-mcv")
+    public String springMvc(Model model)
+    {
+
+        return "index/spring-mvc";
     }
 
 }

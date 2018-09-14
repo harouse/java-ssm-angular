@@ -52,9 +52,11 @@ export class IndexComponent implements OnInit {
 
     deletePosts(id: number) {
         let that = this;
-        this.postServices.deletePosts(id).subscribe( res => {
-            this.util.showUitlsByResponse(res, function() {
-                that.getList();
+        this.util.confirm('', '是否删除帖子,删除后将无法找回', function () {
+            that.postServices.deletePosts(id).subscribe( res => {
+                that.util.showUitlsByResponse(res, function() {
+                    that.getList();
+                });
             });
         });
     }
