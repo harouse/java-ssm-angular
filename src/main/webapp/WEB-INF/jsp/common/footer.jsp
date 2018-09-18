@@ -19,6 +19,10 @@
         </li>
 
         <li>
+            <a href="/angular/index/spring-mvc"> Spring MVC 介绍 </a>
+        </li>
+
+        <li>
             <a href="http://localhost:4201/index">查看Angular项目</a>
         </li>
     </ul>

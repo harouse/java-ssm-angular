@@ -18,6 +18,7 @@ public class IndexController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model)
     {
+        System.out.println("start controller at indexController/index");
         String paramStr = "abcdefg";
 
         Map<String,Object> paramMap=new HashMap<>();
@@ -77,7 +78,6 @@ public class IndexController {
     @RequestMapping(value = "spring-mcv")
     public String springMvc(Model model)
     {
-
         return "index/spring-mvc";
     }
 

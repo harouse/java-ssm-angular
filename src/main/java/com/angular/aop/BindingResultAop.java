@@ -28,12 +28,17 @@ public class BindingResultAop {
     public Object  around(ProceedingJoinPoint joinPoint) throws Throwable{
         LOG.info("before method invoking!");
         BindingResult bindingResult = null;
+
         for(Object arg:joinPoint.getArgs()){
             if(arg instanceof BindingResult){
+                LOG.info("args is " + arg.toString());
                 bindingResult = (BindingResult) arg;
             }
         }
+
+
         if(bindingResult != null){
+            LOG.info("bingResult is " + bindingResult.toString());
             if(bindingResult.hasErrors()){
                 String errorInfo="["+bindingResult.getFieldError().getField()+"]"+bindingResult.getFieldError().getDefaultMessage();
                 return new BaseResult<Object>(false, errorInfo);
