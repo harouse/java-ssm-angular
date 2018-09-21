@@ -7,7 +7,11 @@
         </li>
 
         <li>
-            <a href="/angular/index/dictionary">目录结构介绍</a>
+            <a href="/angular/index/spring"> Spring 介绍 </a>
+        </li>
+
+        <li>
+            <a href="/angular/index/spring-mvc"> Spring MVC 介绍 </a>
         </li>
 
         <li>
@@ -15,11 +19,7 @@
         </li>
 
         <li>
-            <a href="/angular/index/spring"> Spring 介绍 </a>
-        </li>
-
-        <li>
-            <a href="/angular/index/spring-mvc"> Spring MVC 介绍 </a>
+            <a href="/angular/index/dictionary">目录结构介绍</a>
         </li>
 
         <li>
