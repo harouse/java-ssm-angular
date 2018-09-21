@@ -75,7 +75,7 @@ public class IndexController {
     /**
      * spring mvc 介绍
      */
-    @RequestMapping(value = "spring-mcv")
+    @RequestMapping(value = "spring-mvc")
     public String springMvc(Model model)
     {
         return "index/spring-mvc";
