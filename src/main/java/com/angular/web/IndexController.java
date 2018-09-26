@@ -19,7 +19,7 @@ public class IndexController {
     public String index(Model model)
     {
         System.out.println("start controller at indexController/index");
-        String paramStr = "abcdefg";
+        String paramStr = "这是一个字符串1";
 
         Map<String,Object> paramMap=new HashMap<>();
         paramMap.put("name", "NelsonKing");

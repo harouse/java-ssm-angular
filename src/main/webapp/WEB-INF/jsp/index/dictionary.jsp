@@ -47,10 +47,6 @@
                     <td>一般与数据库的表相对应，封装dao层取出来的数据为一个对象。</td>
                 </tr>
                 <tr>
-                    <td>src/main/java/dto 数据传输层</td>
-                    <td>用于service层与web层之间传输</td>
-                </tr>
-                <tr>
                     <td>src/main/java/service 逻辑（接口）</td>
                     <td>写我们的业务逻辑</td>
                 </tr>

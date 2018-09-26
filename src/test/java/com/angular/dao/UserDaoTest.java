@@ -36,9 +36,9 @@ public class UserDaoTest {
 	public void testQueryAddUser()
 	{
 		User userObj = new User();;
-		userObj.setName("NelsonKing");
-		userObj.setEmail("gaoyansing@sina.com");
-		userObj.setPassword(ToolsServices.parseMd5("gaoyansing"));
+		userObj.setName("NelsonKing2");
+		userObj.setEmail("gaoyansing2@sina.com");
+		userObj.setPassword(ToolsServices.parseMd5("gaoyansing2"));
 		userObj.setIsAdmin(1);
 
 		userDao.addUser(userObj);
